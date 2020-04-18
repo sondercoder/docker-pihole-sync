@@ -1,6 +1,9 @@
 # docker-pihole-sync
 A Docker Container To Sync Two Piholes. 
 
+# A Fork 
+From ShiromMakkad's awesome project. Customized to fit current example docker configuration from pihole.
+
 ## Introduction
 A Pihole runs your entire network. If it goes down, your whole network goes down. If you have a family at home, they're going to be pretty annoyed that the wifi goes out everytime you want to do some maintainence. The only solution to this problem is to have a redundant pihole on your network, but you don't want to change your settings in two different places.
 
