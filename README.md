@@ -1,5 +1,8 @@
 # docker-pihole-sync
-A Docker Container To Sync Two Piholes. 
+A Docker Container To Sync Two Piholes. Currently 
+
+Bugs:
+Issue with permissions working properly. May require same user/account used for both docker instances
 
 # A Fork 
 From ShiromMakkad's awesome project. Customized to fit current example docker configuration from pihole.
