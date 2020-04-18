@@ -59,7 +59,7 @@ services:
 #      - NET_ADMIN
     restart: unless-stopped
   pihole-sync:
-    image: sondercoder/pihole-sync
+    image: sondercoder/docker-pihole-sync
     container_name: pihole-sync
     volumes:
       - ~/.ssh:/root/.ssh/:ro
