@@ -25,19 +25,47 @@ The master Pihole must be able to SSH into the slave Pihole. If that's a restric
 ## Setup
 ### docker-compose.yml
 ```
-pihole:
+version: "3"
+
+services:
+  pihole:
+    container_name: pihole
     image: pihole/pihole:latest
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp"
+      - "80:80/tcp"
+      - "443:443/tcp"
+    environment:
+      TZ: 'America/Chicago'
+    # WEBPASSWORD: 'Password'
+    # Volumes store your data between container upgrades
     volumes:
-        - /mnt/ext/pihole/pihole:/etc/pihole/
-    rest of pihole config...
-pihole-sync:
-    image: shirom/pihole-sync
+       - './etc-pihole/:/etc/pihole/'
+       - './etc-dnsmasq.d/:/etc/dnsmasq.d/'
+    dns:
+      - 127.0.0.1
+      - 1.1.1.1
+      - 1.0.0.1
+      - 1.1.1.2
+      - 1.0.0.2
+    # Recommended but not required (DHCP needs NET_ADMIN)
+    #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
+#    cap_add:
+#      - NET_ADMIN
+    restart: unless-stopped
+  pihole-sync:
+    image: sondercoder/pihole-sync
     container_name: pihole-sync
     volumes:
-        - ~/.ssh:/root/.ssh/:ro
-        - /mnt/ext/pihole/pihole:/mnt/pihole
+      - ~/.ssh:/root/.ssh/:ro
+      - './etc-pihole/:/mnt/pihole/'
+      - './etc-dnsmasq.d/:/mnt/dnsmasq.d/'
     environment:
-        - CLIENTDIR="pi@192.168.0.16:/home/pi/pihole/pihole"
+      - CLIENTDIR1="pi@192.168.1.3:/home/pi/pihole/etc-pihole"
+      - CLIENTDIR2="pi@192.168.1.3:/home/pi/pihole/etc-dnsmsq.d"
+
 ```
 ### Volumes
 Volume | Function 
