@@ -1,9 +1,6 @@
 # docker-pihole-sync
 A Docker Container To Sync Two Piholes. Currently 
 
-Bugs:
-Issue with permissions working properly. May require same user/account used for both docker instances
-
 # A Fork 
 From ShiromMakkad's awesome project. Customized to fit current example docker configuration from pihole.
 
@@ -27,6 +24,19 @@ Unlike [pihole-cloudsync](https://github.com/stevejenkins/pihole-cloudsync), we 
 
 #### NOTE: 
 The master Pihole must be able to SSH into the slave Pihole. If that's a restriction (maybe your Piholes are behind different VPNs), use [pihole-cloudsync](https://github.com/stevejenkins/pihole-cloudsync). 
+
+Also, currently the user running the docker containers, need to be the same, and the permissions on the folders containing the configuration files that are synced need to be owned by that user and the docker group on both devices.  If you have a better method, please let me know. 
+
+```
+
+ls -lha
+drwxr-xr-x  3 pi   pi   4.0K Apr  8 22:18 .
+drwxr-xr-x 10 pi   pi   4.0K Apr 18 01:34 ..
+drwxr-xr-x 2 pi docker 4.0K Apr 20 09:07 etc-dnsmasq.d
+drwxr-xr-x 2 pi docker 4.0K Apr 20 09:12 etc-pihole
+
+```
+When in the in the path where the docker volumes live run chown -R ./etc-* - Please backup before running any ownership commands.
 
 ## Setup
 ### docker-compose.yml
