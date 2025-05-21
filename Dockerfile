@@ -1,3 +1,4 @@
+LABEL version="0.2"
 FROM debian
 
 RUN apt-get update -y
