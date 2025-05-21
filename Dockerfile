@@ -1,6 +1,6 @@
-LABEL version="0.2"
 FROM debian
 
+LABEL version="0.2"
 RUN apt-get update -y
 RUN apt-get install openssh-client -y
 RUN apt-get install rsync -y
